@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:columnCount="2"
+    tools:context="com.example.darya.layout.TaskActivity">
+
+    <TextView
+        android:text="@string/info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:text="@string/temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:layout_marginTop="20dp"/>
+
+    <ToggleButton
+        android:textOn="@string/hot"
+        android:textOff="@string/cold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_column="1"
+        android:layout_marginTop="20dp"/>
+
+    <CheckBox
+        android:id="@+id/ch_milk"
+        android:text="@string/milk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="2"
+        android:layout_column="0"
+        />
+
+    <CheckBox
+        android:id="@+id/ch_sugar"
+        android:text="@string/sugar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="3"
+        android:layout_column="0"
+        />
+
+    <CheckBox
+        android:id="@+id/ch_lemon"
+        android:text="@string/lemon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="4"
+        android:layout_column="0"
+        />
+</GridLayout>

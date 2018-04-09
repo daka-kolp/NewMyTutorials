@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingRight="20dp"
+    android:paddingBottom="20dp"
+    android:paddingTop="20dp"
+    android:paddingLeft="20dp"
+    tools:context=".RelativeActivity">
+
+    <TextView
+        android:id="@+id/relative"
+        android:text="@string/relative_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:textSize="50sp"/>
+
+    <Button
+        android:id="@+id/layout"
+        android:text="@string/linear_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relative"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="30sp"
+        />
+
+    <Button
+        android:id="@+id/grid"
+        android:text="@string/grid_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="30sp"
+        android:onClick="onGridClicked"/>
+
+    <EditText
+        android:id="@+id/edit"
+        android:hint="@string/edit_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grid"
+        android:layout_marginTop="20dp"/>
+
+    <ToggleButton
+        android:id="@+id/toggle"
+        android:textOn="@string/on"
+        android:textOff="@string/off"
+        android:text="@string/toggle_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit"
+        android:layout_marginTop="10dp"
+        android:onClick="onTBClicked"/>
+
+    <Switch
+        android:id="@+id/switch_view"
+        android:textOn="@string/on"
+        android:textOff="@string/off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/toggle"
+        android:layout_below="@+id/edit"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"/>
+
+    <CheckBox
+        android:id="@+id/check"
+        android:text="@string/layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/switch_view"
+        android:layout_below="@+id/edit"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"/>
+
+    <RadioGroup
+        android:id="@+id/radio"
+        android:layout_below="@+id/toggle"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/a"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/b"/>
+
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/spinner_widget"
+        android:entries="@array/spinner_values"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/radio"
+        android:layout_below="@id/toggle"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"/>
+
+ </RelativeLayout>
