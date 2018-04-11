@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="coffee">
+  <!--  <string-array name="coffee">
         <item>Latte</item>
         <item>Dark</item>
         <item>Cappuccino</item>
-    </string-array>
+    </string-array> -->
     <string-array name="list_options">
         <item>Drinks</item>
         <item>Food</item>
