@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem menuItem = menu.findItem(R.id.action_share);
         shareActionProvider = (ShareActionProvider) menuItem.getActionProvider();
-        setIntent("This is example text");
+        setIntent("This is & example text");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -40,6 +40,7 @@ public class MainActivity extends Activity {
         intent.putExtra(Intent.EXTRA_TEXT, text);
         shareActionProvider.setShareIntent(intent);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
