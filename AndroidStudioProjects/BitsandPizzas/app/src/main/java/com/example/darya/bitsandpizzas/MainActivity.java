@@ -2,6 +2,7 @@ package com.example.darya.bitsandpizzas;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -17,13 +18,22 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ShareActionProvider;
 
-public class MainActivity extends Activity {
 
+public class MainActivity extends Activity {
+    private final static String VF = "visible_fragment";
+    private final static String POSITION = "position";
     private DrawerLayout drawerLayout;
     private ShareActionProvider shareActionProvider;
     private String[] titles;
     private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
+    private int currentPosition = 0;
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(POSITION, currentPosition);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +46,12 @@ public class MainActivity extends Activity {
                 new ArrayAdapter<String>
                         (this, android.R.layout.simple_list_item_activated_1,titles));
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
-        if (savedInstanceState == null) selectItem(0);
-
+        if(savedInstanceState != null){
+            currentPosition = savedInstanceState.getInt(POSITION);
+            setActionBarTitle(currentPosition);
+        } else {
+            selectItem(0);
+        }
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.close_drawer){
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -55,6 +69,27 @@ public class MainActivity extends Activity {
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
+
+        getFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment fragment = fragmentManager.findFragmentByTag(VF);
+                if (fragment instanceof TopFragment) {
+                    currentPosition = 0;
+                } else if (fragment instanceof PizzaFragment){
+                    currentPosition = 1;
+                } else if (fragment instanceof PastaFragment){
+                    currentPosition = 2;
+                } else if (fragment instanceof StoresFragment){
+                    currentPosition = 3;
+                }
+                setActionBarTitle(currentPosition);
+                drawerList.setItemChecked(currentPosition, true);
+
+            }
+        });
+
     }
 
     @Override
@@ -110,6 +145,8 @@ public class MainActivity extends Activity {
     }
 
     private void selectItem(int position) {
+        currentPosition = position;
+
         Fragment fragment;
 
         switch(position) {
@@ -129,7 +166,7 @@ public class MainActivity extends Activity {
         }
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, fragment);
+        ft.replace(R.id.content_frame, fragment, VF);
         ft.addToBackStack(null);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
