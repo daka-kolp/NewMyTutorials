@@ -77,11 +77,14 @@ public class MainActivity extends Activity {
                 Fragment fragment = fragmentManager.findFragmentByTag(VF);
                 if (fragment instanceof TopFragment) {
                     currentPosition = 0;
-                } else if (fragment instanceof PizzaFragment){
+                }
+                if (fragment instanceof PizzaFragment){
                     currentPosition = 1;
-                } else if (fragment instanceof PastaFragment){
+                }
+                if (fragment instanceof PastaFragment){
                     currentPosition = 2;
-                } else if (fragment instanceof StoresFragment){
+                }
+                if (fragment instanceof StoresFragment){
                     currentPosition = 3;
                 }
                 setActionBarTitle(currentPosition);
