@@ -10,10 +10,10 @@ class StarbuzzDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "coffeshop";
     private static final int DB_VERSION = 2;
 
-    private static final String DRINK = "DRINK";
-    private static final String NAME = "NAME";
-    private static final String DESCRIPTION = "DESCRIPTION";
-    private static final String IMAGE = "IMAGE_RESOURCE_ID";
+    public static final String DRINK = "DRINK";
+    public static final String NAME = "NAME";
+    public static final String DESCRIPTION = "DESCRIPTION";
+    public static final String IMAGE = "IMAGE_RESOURCE_ID";
 
     public StarbuzzDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);

@@ -1,13 +1,13 @@
 package com.example.darya.coffeeshop;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-public class TopLevelActivity extends AppCompatActivity {
+public class TopLevelActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
