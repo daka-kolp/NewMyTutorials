@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-class StarbuzzDatabaseHelper extends SQLiteOpenHelper {
+class CoffeeshopDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "coffeshop";
     private static final int DB_VERSION = 2;
@@ -14,8 +14,9 @@ class StarbuzzDatabaseHelper extends SQLiteOpenHelper {
     public static final String NAME = "NAME";
     public static final String DESCRIPTION = "DESCRIPTION";
     public static final String IMAGE = "IMAGE_RESOURCE_ID";
+    public static final String FAVORITE = "FAVORITE";
 
-    public StarbuzzDatabaseHelper(Context context) {
+    public CoffeeshopDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 

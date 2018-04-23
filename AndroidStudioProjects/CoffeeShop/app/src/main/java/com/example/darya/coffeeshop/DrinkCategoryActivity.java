@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -25,11 +24,11 @@ public class DrinkCategoryActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         ListView listView = getListView();
         try {
-            SQLiteOpenHelper coffeeshopDatabaseHelper = new StarbuzzDatabaseHelper(this);
+            SQLiteOpenHelper coffeeshopDatabaseHelper = new CoffeeshopDatabaseHelper(this);
             db = coffeeshopDatabaseHelper.getReadableDatabase();
             cursor = db.query(
-                    StarbuzzDatabaseHelper.DRINK,
-                    new String[] {"_id", StarbuzzDatabaseHelper.NAME},
+                    CoffeeshopDatabaseHelper.DRINK,
+                    new String[] {"_id", CoffeeshopDatabaseHelper.NAME},
                     null,
                     null,
                     null,
@@ -39,7 +38,7 @@ public class DrinkCategoryActivity extends ListActivity {
                     this,
                     android.R.layout.simple_list_item_1,
                     cursor,
-                    new String[] {StarbuzzDatabaseHelper.NAME},
+                    new String[] {CoffeeshopDatabaseHelper.NAME},
                     new int[] {android.R.id.text1},
                     0);
             listView.setAdapter(listAdapter);
@@ -57,11 +56,11 @@ public class DrinkCategoryActivity extends ListActivity {
         db.close();
     }
 
-    public void getListWithAdapter () {
-        ListView listView = getListView();
-        ArrayAdapter<Coffee> listAdapter = new ArrayAdapter<Coffee>(this, android.R.layout.simple_list_item_1, Coffee.coffee);
-        listView.setAdapter(listAdapter);
-    }
+//    public void getListWithAdapter () {
+//        ListView listView = getListView();
+//        ArrayAdapter<Coffee> listAdapter = new ArrayAdapter<Coffee>(this, android.R.layout.simple_list_item_1, Coffee.coffee);
+//        listView.setAdapter(listAdapter);
+//    }
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {

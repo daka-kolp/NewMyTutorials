@@ -2,4 +2,6 @@
     <string name="app_name">NewCoffeeShop</string>
     <string name="coffee_shop">This is CoffeeShop logo</string>
     <string name="title_activity_drink_category">Drinks</string>
+    <string name="favorite">Favorite</string>
+    <string name="favorites">Your favorite drinks</string>
 </resources>

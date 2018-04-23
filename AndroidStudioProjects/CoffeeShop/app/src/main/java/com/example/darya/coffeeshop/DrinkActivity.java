@@ -1,11 +1,14 @@
 package com.example.darya.coffeeshop;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,22 +27,27 @@ public class DrinkActivity extends AppCompatActivity {
     public void showInfoCoffee() {
         int drinkNo = (Integer)getIntent().getExtras().get(EXTRA_DRINKNO);
         try {
-            SQLiteOpenHelper coffeshopDatabaseHelper = new StarbuzzDatabaseHelper(this);
-            SQLiteDatabase db = coffeshopDatabaseHelper.getReadableDatabase();
+            SQLiteOpenHelper coffeshopDatabaseHelper = new CoffeeshopDatabaseHelper(this);
+            SQLiteDatabase db = coffeshopDatabaseHelper.getWritableDatabase();
             Cursor cursor = db.query(
-                    StarbuzzDatabaseHelper.DRINK,
-                    new String[] {StarbuzzDatabaseHelper.NAME, StarbuzzDatabaseHelper.DESCRIPTION, StarbuzzDatabaseHelper.IMAGE},
+                    CoffeeshopDatabaseHelper.DRINK,
+                    new String[] {
+                            CoffeeshopDatabaseHelper.NAME,
+                            CoffeeshopDatabaseHelper.DESCRIPTION,
+                            CoffeeshopDatabaseHelper.IMAGE,
+                            CoffeeshopDatabaseHelper.FAVORITE },
                     "_id = ?",
                     new String[] {Integer.toString(drinkNo)},
                     null,
                     null,
                     null);
-            if (cursor.moveToFirst()) {
 
+            if (cursor.moveToFirst()) {
                 //get data about drinks
                 String nameText = cursor.getString(0);
                 String descripionText = cursor.getString(1);
                 int photoId = cursor.getInt(2);
+                boolean isFavorite = (cursor.getInt(3) == 1);
 
                 //fill data
                 TextView name = (TextView) findViewById(R.id.name);
@@ -51,6 +59,9 @@ public class DrinkActivity extends AppCompatActivity {
                 ImageView photo = (ImageView) findViewById(R.id.photo);
                 photo.setImageResource(photoId);
                 photo.setContentDescription(nameText);
+
+                CheckBox favorite = (CheckBox) findViewById(R.id.favorite);
+                favorite.setChecked(isFavorite);
             }
             cursor.close();
             db.close();
@@ -59,8 +70,6 @@ public class DrinkActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
-
-
 //        Coffee cof = Coffee.coffee[drinkNo];
 //
 //        ImageView photo = (ImageView) findViewById(R.id.photo);
@@ -75,4 +84,23 @@ public class DrinkActivity extends AppCompatActivity {
 //        description.setText(cof.getDescription());
     }
 
+    public void onFavoriteClicked(View view) {
+        int drinkNo = (Integer)getIntent().getExtras().get(EXTRA_DRINKNO);
+        CheckBox favorite = (CheckBox) findViewById(R.id.favorite);
+        ContentValues drinkValues = new ContentValues();
+        drinkValues.put(CoffeeshopDatabaseHelper.FAVORITE, favorite.isChecked());
+        SQLiteOpenHelper coffeeshopDatabaseHelper = new CoffeeshopDatabaseHelper(DrinkActivity.this);
+        try {
+            SQLiteDatabase db = coffeeshopDatabaseHelper.getWritableDatabase();
+            db.update(
+                    CoffeeshopDatabaseHelper.DRINK,
+                    drinkValues,
+                    "_id=?",
+                    new String[]{Integer.toString(drinkNo)});
+            db.close();
+        } catch (SQLiteException e) {
+            Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
 }
