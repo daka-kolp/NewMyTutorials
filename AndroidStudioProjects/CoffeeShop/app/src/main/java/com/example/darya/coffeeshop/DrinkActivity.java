@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -89,6 +90,7 @@ public class DrinkActivity extends AppCompatActivity {
         CheckBox favorite = (CheckBox) findViewById(R.id.favorite);
         ContentValues drinkValues = new ContentValues();
         drinkValues.put(CoffeeshopDatabaseHelper.FAVORITE, favorite.isChecked());
+
         SQLiteOpenHelper coffeeshopDatabaseHelper = new CoffeeshopDatabaseHelper(DrinkActivity.this);
         try {
             SQLiteDatabase db = coffeeshopDatabaseHelper.getWritableDatabase();
@@ -99,8 +101,32 @@ public class DrinkActivity extends AppCompatActivity {
                     new String[]{Integer.toString(drinkNo)});
             db.close();
         } catch (SQLiteException e) {
+
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
     }
+    private class MyAcyncTask extends AsyncTask {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Object[] values) {
+            super.onProgressUpdate(values);
+        }
+
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+        }
+    }
+
 }
