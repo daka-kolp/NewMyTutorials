@@ -87,46 +87,65 @@ public class DrinkActivity extends AppCompatActivity {
 
     public void onFavoriteClicked(View view) {
         int drinkNo = (Integer)getIntent().getExtras().get(EXTRA_DRINKNO);
-        CheckBox favorite = (CheckBox) findViewById(R.id.favorite);
-        ContentValues drinkValues = new ContentValues();
-        drinkValues.put(CoffeeshopDatabaseHelper.FAVORITE, favorite.isChecked());
 
-        SQLiteOpenHelper coffeeshopDatabaseHelper = new CoffeeshopDatabaseHelper(DrinkActivity.this);
-        try {
-            SQLiteDatabase db = coffeeshopDatabaseHelper.getWritableDatabase();
-            db.update(
-                    CoffeeshopDatabaseHelper.DRINK,
-                    drinkValues,
-                    "_id=?",
-                    new String[]{Integer.toString(drinkNo)});
-            db.close();
-        } catch (SQLiteException e) {
-
-            Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
-            toast.show();
-        }
+        new UpdateDrinkTask().execute(drinkNo);
+//        CheckBox favorite = (CheckBox) findViewById(R.id.favorite);
+//        ContentValues drinkValues = new ContentValues();
+//        drinkValues.put(CoffeeshopDatabaseHelper.FAVORITE, favorite.isChecked());
+//
+//        SQLiteOpenHelper coffeeshopDatabaseHelper = new CoffeeshopDatabaseHelper(DrinkActivity.this);
+//        try {
+//            SQLiteDatabase db = coffeeshopDatabaseHelper.getWritableDatabase();
+//            db.update(
+//                    CoffeeshopDatabaseHelper.DRINK,
+//                    drinkValues,
+//                    "_id=?",
+//                    new String[]{Integer.toString(drinkNo)});
+//            db.close();
+//        } catch (SQLiteException e) {
+//
+//            Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
+//            toast.show();
+//        }
     }
-    private class MyAcyncTask extends AsyncTask {
+
+    private class UpdateDrinkTask extends AsyncTask <Integer, Void, Boolean> {
+
+        ContentValues drinkValues;
+
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
+            CheckBox favorite = (CheckBox) findViewById(R.id.favorite);
+            drinkValues = new ContentValues();
+            drinkValues.put(CoffeeshopDatabaseHelper.FAVORITE, favorite.isChecked());
         }
 
         @Override
-        protected Object doInBackground(Object[] objects) {
-            return null;
+        protected Boolean doInBackground(Integer... drinks) {
+            int drinkNo = drinks[0];
+            SQLiteOpenHelper coffeeshopDatabaseHelper = new CoffeeshopDatabaseHelper(DrinkActivity.this);
+            try {
+                SQLiteDatabase db = coffeeshopDatabaseHelper.getWritableDatabase();
+                db.update(
+                        CoffeeshopDatabaseHelper.DRINK,
+                        drinkValues,
+                        "_id=?",
+                        new String[]{Integer.toString(drinkNo)});
+                db.close();
+                return true;
+            } catch (SQLiteException e) {
+                return false;
+            }
         }
 
-        @Override
-        protected void onProgressUpdate(Object[] values) {
-            super.onProgressUpdate(values);
-        }
 
 
         @Override
-        protected void onPostExecute(Object o) {
-            super.onPostExecute(o);
+        protected void onPostExecute(Boolean o) {
+            if(!o) {
+                Toast toast = Toast.makeText(DrinkActivity.this, "Database unavailable", Toast.LENGTH_SHORT);
+                toast.show();
+            }
         }
     }
-
 }
