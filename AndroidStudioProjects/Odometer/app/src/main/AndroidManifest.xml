@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.darya.odometer">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,7 +22,11 @@
         <service
             android:name=".OdometerService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
+        <service
+            android:name=".TaskNumberService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
