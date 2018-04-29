@@ -1,8 +1,10 @@
 package com.example.darya.bitsandpizzas;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +14,7 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PizzaMaterialFragment extends Fragment {
+public class PizzaMaterialFragment extends Fragment{
 
 
     public PizzaMaterialFragment() {
@@ -35,8 +37,21 @@ public class PizzaMaterialFragment extends Fragment {
              pizzaImages[i] = Pizza.pizzas[i].getImageResourceId();
         }
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        pizzaRecycler.setLayoutManager(layoutManager);
+
         CaptionedImageAdapter adapter = new CaptionedImageAdapter(pizzaNames, pizzaImages);
         pizzaRecycler.setAdapter(adapter);
+
+
+        adapter.setListener(new CaptionedImageAdapter.Listener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(getActivity(), PizzaDetailActivity.class);
+                intent.putExtra(PizzaDetailActivity.EXTRA_PIZZANO, position);
+                getActivity().startActivity(intent);
+            }
+        });
         return pizzaRecycler;
     }
 
